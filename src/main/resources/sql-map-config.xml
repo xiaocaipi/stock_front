@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <settings cacheModelsEnabled="true" enhancementEnabled="false"
+              lazyLoadingEnabled="true" errorTracingEnabled="true"
+              maxRequests="1024" maxSessions="256" maxTransactions="32"
+              useStatementNamespaces="true" />
+ 			<sqlMap resource="com/stock/dao/sql/ProxySql.xml" />
+</sqlMapConfig>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+ 
+  
+    <bean id="dataSource1" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.210.44:1521:foc" />
+		<property name="user" value="testread" />
+		<property name="password" value="testread" />
+		<property name="autoCommitOnClose" value="true" />
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://hadoop1:3306/kms?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="user" value="root" />
+		<property name="password" value="" />
+		<property name="autoCommitOnClose" value="true" />
+		
+		<property name="preferredTestQuery" value="SELECT 1" />
+		<property name="minPoolSize" value="1" />
+		<property name="maxPoolSize" value="50" />
+		<property name="initialPoolSize" value="20" />
+		<property name="maxIdleTime" value="2000" />
+		<property name="acquireIncrement" value="1" />
+
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="acquireRetryDelay" value="2000" />
+		<property name="testConnectionOnCheckin" value="true" />
+		<property name="automaticTestTable" value="c3p0TestTable" />
+		<property name="idleConnectionTestPeriod" value="18000" />
+		<property name="checkoutTimeout" value="3000" />
+	</bean>
+
+
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" /> 
+	</bean>
+
+
+
+	<context:component-scan base-package="com.spring" />
+
+	<context:annotation-config />
+
+	<tx:annotation-driven />
+
+
+	<!--  配置SqlSessionFactoryBean  
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sql-map-config.xml" />
+	 
+			mapper和resultmap配置路径 <property name="mapperLocations"> <list>
+			表示在com.hoo.resultmap包或以下所有目录中，以-resultmap.xml结尾所有文件
+			<value>classpath:com/springkm/mapper/*-ibatis.xml</value> </list>
+			</property>
+		 
+	</bean>
+	-->
+	
+	
+	<bean id="sqlMapClient"  class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+         <property name="configLocation" value="classpath:sql-map-config.xml" />
+        <property name="dataSource" ref="dataSource" /> 
+    </bean>
+    
+    <bean id="sqlMapClient1"  class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+         <property name="configLocation" value="classpath:sql-map-config.xml" />
+        <property name="dataSource" ref="dataSource1" /> 
+    </bean>
+    
+
+    
+    
+
+	<!--  配置事务的传播特性 -->
+	<bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">readOnly</prop>
+			</props>
+		</property>
+	</bean>
+		<!--
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.spring.kms.mapper" />
+	</bean>-->
+
+</beans>

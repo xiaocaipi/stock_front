@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SpringKms/src/com/lvmama/stock/dao/sql/ProxySql">
+
+	<delete id="deleteProxy" parameterClass="java.util.HashMap">
+		<![CDATA[
+		DELETE from proxy_base 
+		where status = -1
+		]]> 
+	</delete>
+	
+
+	
+
+
+
+
+
+</sqlMap>
