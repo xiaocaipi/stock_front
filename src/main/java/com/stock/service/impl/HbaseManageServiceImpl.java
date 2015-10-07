@@ -110,6 +110,12 @@ public class HbaseManageServiceImpl  extends BaseHbaseService implements HbaseMa
 		
 		return this.queryByConditionList(query, new StockAlertVo(), "test_alert");
 	}
+
+	@Override
+	public StockAlertVo getStockAlertVo(HbaseQuery query) throws Exception  {
+		StockAlertVo vo =(StockAlertVo)this.queryByConditionGet(query, new StockAlertVo(), "test_alert");
+		return vo;
+	}
 	
 
 }

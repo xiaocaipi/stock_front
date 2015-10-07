@@ -3,6 +3,7 @@ package com.stock.service;
 import java.util.List;
 import java.util.Map;
 
+import com.stock.vo.HbaseQuery;
 import com.stock.vo.StockAlertVo;
 import com.stock.vo.StockRealTimeData;
 
@@ -18,5 +19,7 @@ public interface HbaseManageService {
 	public void saveAlert(StockAlertVo alertVo) throws Exception;
 
 	public List<StockAlertVo> getStockAlertList(Map<String, String> paraMap) throws Exception ;
+
+	public StockAlertVo getStockAlertVo(HbaseQuery query) throws Exception ;
 
 }

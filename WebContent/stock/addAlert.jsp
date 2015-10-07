@@ -26,26 +26,6 @@
 		getList(1);
 	}
 
-	function deleteword(id){
-
-
-		 springWit.dialogMsg({
-				width : 300,  
-				title : '请确认提示：', 
-				content :'是否删除', 
-				animate : "fade",
-				button : { 
-					"<fmt:message key='determine' bundle='${lang}'></fmt:message>" : function(e){  
-						 $("#isdelete").attr("value",1);
-						 $("#wordid").attr("value",id);
-						 getList(1);
-					},
-					"<fmt:message key='home.reset' bundle='${lang}'></fmt:message>" : function(){
-					}
-				  } 
-		     });
-		
-		}
 
 function getList(pageIndex){
 
@@ -129,12 +109,12 @@ function saveAlert(){
             
                 <div class="inner clr-fn">
                     <!--列表-->
-                    code：<input type="text" name="code" id="code"/> <br />
-                                                                   大于价格：<input type="text" name="overprice" id="overprice"/> <br />
-				                    小于价格：<input type="text" name="lowprice" id="lowprice"/> <br />
-				                    涨幅：<input type="text" name="zhangfu" id="zhangfu"/> <br />
-				                    跌幅：<input type="text" name="diefu" id="diefu"/> <br />
-				                    换手率：<input type="text" name="huanshoulv" id="huanshoulv"/> <br />
+                    code：<input type="text" name="code" id="code" value="${alertvo.code }"/> <br />
+                                                                   大于价格：<input type="text" name="overprice" id="overprice" value="${alertvo.overprice }"/> <br />
+				                    小于价格：<input type="text" name="lowprice" id="lowprice" value="${alertvo.lowprice }"/> <br />
+				                    涨幅：<input type="text" name="zhangfu" id="zhangfu" value="${alertvo.zhangfu }"/> <br />
+				                    跌幅：<input type="text" name="diefu" id="diefu" value="${alertvo.diefu }"/> <br />
+				                    换手率：<input type="text" name="huanshoulv" id="huanshoulv" value="${alertvo.huanshoulv }"/> <br />
                     <!--列表结束-->
                     <input type="button" onclick="saveAlert()" name="" id="" value="保存"/>
                     <div class="aln-c">

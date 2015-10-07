@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import util.JsonUtil;
 
 import com.stock.service.HbaseManageService;
+import com.stock.vo.HbaseQuery;
 import com.stock.vo.StockAlertVo;
 
 
@@ -118,6 +119,23 @@ public class StockRTController extends MultiActionController{
 
 			HashMap<String, String> paraMap = new HashMap<String, String>();
 			try {
+			} catch (Exception e) {
+
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+
+			return new ModelAndView("stock/addAlert");
+		}
+		
+		@RequestMapping(params = "method=editAlert")
+		public ModelAndView editAlert(HttpServletRequest request,
+				HttpServletResponse response,HbaseQuery query) {
+			String code = request.getParameter("code");
+			try {
+				query.setRowkey(code);
+				StockAlertVo alertvo = hbaseManageService.getStockAlertVo(query);
+				request.setAttribute("alertvo", alertvo);
 			} catch (Exception e) {
 
 				e.printStackTrace();

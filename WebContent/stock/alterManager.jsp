@@ -7,9 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 <!--<link rel="stylesheet" href="${ctx}/css/g.base.css" />-->
-
-<link rel="stylesheet" href="${ctx}/css/c.user.css" />
+<link href="${ctx}/css/bootstrap.min.css" rel="stylesheet">
   <script src="${ctx}/js/jquery1.8.2.js"></script>
+   <script src="${ctx}/js/bootstrap.min.js"></script>
 </head>
 <script type="text/javascript">
 /*
@@ -27,26 +27,6 @@
 		getList(1);
 	}
 
-	function deleteword(id){
-
-
-		 springWit.dialogMsg({
-				width : 300,  
-				title : '请确认提示：', 
-				content :'是否删除', 
-				animate : "fade",
-				button : { 
-					"<fmt:message key='determine' bundle='${lang}'></fmt:message>" : function(e){  
-						 $("#isdelete").attr("value",1);
-						 $("#wordid").attr("value",id);
-						 getList(1);
-					},
-					"<fmt:message key='home.reset' bundle='${lang}'></fmt:message>" : function(){
-					}
-				  } 
-		     });
-		
-		}
 
 function getList(pageIndex){
 
@@ -72,7 +52,7 @@ function getList(pageIndex){
         	           "<td>"+item.huanshoulv+"</td>"+	
         	           "<td>"+item.status+"</td>"+	
         	           "<td>" +
-                   	"<a href='${ctx}/aboutKnowledge.do?method=isCreateOrShow&kmKnowledgeId="+item.id+"' target='_blank' class='btn-green-small'><span>编辑</span></a> "+
+                   	"<a href='${ctx}/stockrt.do?method=editAlert&code="+item.code+"' target='_blank' class=''><span>编辑</span></a> "+
                         	"<a href='###' onclick='deleteword("+item.id+")' class='btn-green-small'><span>删除</span></a> "+
         	           "</td>"+	
         	           "</tr>";		
